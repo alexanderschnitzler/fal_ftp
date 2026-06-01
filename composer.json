@@ -1,6 +1,9 @@
 {
 	"name": "adgrafik/fal-ftp",
-	"description": "",
+	"description": "Provides a FTP and FTP-SSL driver for the TYPO3 File Abstraction Layer (FAL) to manage files via filemanager (filelist).",
+	"license": [
+		"GPL-2.0-or-later"
+	],
 	"type": "typo3-cms-extension",
 	"require": {
 		"php": "~8.2.0 || ~8.3.0 || ~8.4.0 || ~8.5.0",
