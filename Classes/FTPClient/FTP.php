@@ -125,6 +125,7 @@ class FTP extends AbstractFTP implements FTPInterface
         if (!in_array($transferMode, [FTP_ASCII, FTP_BINARY], true)) {
             throw new InvalidConfigurationException('Invalid transfer mode "' . $transferMode . '".', 1408550515);
         }
+        $this->transferMode = $transferMode;
 
         $this->basePath = '/' . (trim((string)$settings['basePath'], '/') ?: '');
     }
