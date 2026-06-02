@@ -28,14 +28,17 @@
 			"typo3/class-alias-loader": false,
 			"typo3/cms-composer-installers": false
 		},
-		"platform": {
-			"php": "8.2.99"
-		},
 		"sort-packages": true
 	},
 	"extra": {
 		"typo3/cms": {
 			"extension-key": "fal_ftp"
 		}
+	},
+	"scripts": {
+		"php:cs": "@php:cs:fix --dry-run",
+		"php:cs:fix": "vendor/bin/php-cs-fixer -vvv fix --diff",
+		"php:lint": "vendor/bin/phplint --no-interaction",
+		"php:stan": "vendor/bin/phpstan analyse --memory-limit=256M --no-progress --no-interaction -vvv"
 	}
 }

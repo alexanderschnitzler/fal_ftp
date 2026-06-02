@@ -47,6 +47,7 @@ use AdGrafik\FalFtp\FTPClient\Exception\InvalidDirectoryException;
 use AdGrafik\FalFtp\FTPClient\Exception\ResourceDoesNotExistException;
 use FTP\Connection;
 use FTP\Connection as FTPConnection;
+use TYPO3\CMS\Core\Information\Typo3Version;
 use TYPO3\CMS\Core\Resource\Index\ExtractorRegistry;
 
 /**
@@ -105,7 +106,9 @@ class FTP extends AbstractFTP implements FTPInterface
         private readonly FilterRegistry $filterRegistry,
         private readonly ExtractorRegistry $extractorRegistry,
     ) {
-        $this->extractorRegistry->registerExtractionService(ImageDimensionExtractor::class);
+        if ((new Typo3Version())->getMajorVersion() === 13) {
+            $this->extractorRegistry->registerExtractionService(ImageDimensionExtractor::class);
+        }
     }
 
     /**
@@ -360,6 +363,8 @@ class FTP extends AbstractFTP implements FTPInterface
      * @param string $targetDirectory target remote directory, relative path from basePath
      *
      * @throws ExistingResourceException
+     * @throws ResourceDoesNotExistException
+     * @throws FTPConnectionException
      */
     public function copyDirectory(string $sourceDirectory, string $targetDirectory, bool $overwrite = false): static
     {
@@ -613,6 +618,10 @@ class FTP extends AbstractFTP implements FTPInterface
      *
      * @param string $sourceFile source remote file, relative path from basePath
      * @param string $targetFile target remote file, relative path from basePath
+     *
+     * @throws ResourceDoesNotExistException
+     * @throws ExistingResourceException
+     * @throws FTPConnectionException
      */
     public function copyFile(string $sourceFile, string $targetFile, bool $overwrite = false): static
     {
